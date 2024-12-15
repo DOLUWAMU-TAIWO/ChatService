@@ -4,24 +4,26 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.UUID;
 
 @Document(collection = "chats")
 public class Chat {
 
     @Id
-    private String id; // Unique chat ID
+    private final String id; // Unique chat ID (auto-generated)
 
-    private String name; // Name of the chat (optional, useful for group chats)
+    private String name; // Name of the chat (optional, can be null for private chats)
 
-    private List<String> participants; // List of user IDs participating in the chat
+    private List<String> participants; // List of two user IDs participating in the chat
 
-    // Getters and setters
-    public String getId() {
-        return id;
+    // Default constructor for MongoDB
+    public Chat() {
+        this.id = UUID.randomUUID().toString();
     }
 
-    public void setId(String id) {
-        this.id = id;
+    // Getters
+    public String getId() {
+        return id;
     }
 
     public String getName() {

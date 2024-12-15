@@ -31,6 +31,7 @@ public class UserController {
         User sample = new User();
         sample.setEmail("Babafoto@jmail.org");
         sample.setUsername("Babafoto");
+
         userRepository.save(sample);
         List<User> users = userRepository.findAll();
         return ResponseEntity.ok(users);

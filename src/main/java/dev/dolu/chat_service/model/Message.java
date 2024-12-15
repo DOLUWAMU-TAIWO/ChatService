@@ -11,11 +11,13 @@ public class Message {
     private String id;
     private String chatId;
     private String senderId; // ID of the user who sent the message
-    private String message;
+    private String encryptedContent; // Encrypted message content
+    private int keyVersion; // Version of the encryption key used
     private LocalDateTime createdOn;
     private Boolean isDelivered;
 
-    // Transient field for sender's username (not stored in DB)
+    // Transient fields (not stored in the database)
+    private transient String content; // Decrypted message content
     private transient String senderUsername;
 
     // Default constructor
@@ -49,12 +51,20 @@ public class Message {
         this.senderId = senderId;
     }
 
-    public String getMessage() {
-        return message;
+    public String getEncryptedContent() {
+        return encryptedContent;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setEncryptedContent(String encryptedContent) {
+        this.encryptedContent = encryptedContent;
+    }
+
+    public int getKeyVersion() {
+        return keyVersion;
+    }
+
+    public void setKeyVersion(int keyVersion) {
+        this.keyVersion = keyVersion;
     }
 
     public LocalDateTime getCreatedOn() {
@@ -71,6 +81,14 @@ public class Message {
 
     public void setIsDelivered(Boolean isDelivered) {
         this.isDelivered = isDelivered;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getSenderUsername() {
